@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <d3d9.h>
-#include <dx_Init.h>
-#include <dx_tex.h>
+#include <dx_lib.h>
 #include "GameSceneDraw.h"
+#include "GameSceneControl.h"
 
 #define WINDOW_W 1280					// ウィンドウ幅
 #define WINDOW_H 720					// ウィンドウ高さ
@@ -74,14 +74,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	Init_Tex();		//dx_Initから関数呼び出し
 
+	Init_Dinput();
+	Init_Dinput_Key( hWnd);
+
 	// DisplayModeの取得
 	pDirect3D->GetAdapterDisplayMode(
 		D3DADAPTER_DEFAULT,
 		&D3DdisplayMode);
 
-	RoadTex("MONO.jpg", &g_pGameTexture[BACKGROUND_TEX]); //画像の読み込み、RoadTexはdx_texから関数呼び出し
+	RoadTex("background.png", &g_pGameTexture[BACKGROUND_TEX]); //画像の読み込み、RoadTexはdx_texから関数呼び出し
 
+	RoadTex("chara.png", &g_pGameTexture[PLAYER_TEX]);
 
+	RoadTex("Block03.png", &g_pGameTexture[MAP_GROUND_TEX]);
+
+	//MapLoad(".csv");		//csvファイルが出来てから使用する
+
+	g_playerstate = { 1, 210.f, 320.f, 70.f, 450.f, 0, false, false };
 
 
 	//---------------------------------------------------------------------
@@ -109,13 +118,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 			{
 
 				Render();
-
+				Control();
 				SyncOld = SyncNow;
 			}
 		}
 	}
 	timeEndPeriod(1);
 
+	GameSceneFree();				// ゲームシーンの解放関数
 
 	pD3Device->Release();	// DirectXのデバイスの解放
 	pDirect3D->Release();			// DirectXオブジェクトの解放
