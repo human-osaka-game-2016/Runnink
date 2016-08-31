@@ -1,6 +1,6 @@
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <dx_input.h>
+#include <dx_lib.h>
 #include "GameSceneControl.h"
 
 KEYSTATE g_key[KEY_MAX];

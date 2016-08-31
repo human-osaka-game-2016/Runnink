@@ -10,12 +10,29 @@ LPDIRECT3DTEXTURE9			g_pGameTexture[TEXTURE_MAX];
 
 CUSTOMVERTEX g_mapTip1[] =
 {
-	{ 0.0f, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f },
-	{ TIPSIZE, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
+	{    0.0f,    0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f },
+	{ TIPSIZE,    0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
 	{ TIPSIZE, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
-	{ 0.0f, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 1.0f },
+	{    0.0f, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 1.0f },
 };
 
+CUSTOMVERTEX g_mapTip2[] =
+{
+	{ 0.0f, TIPSIZE * -.5f, 0.5f, 1.0f, 0xFFFFFFFF, 0.5f, 0.0f },
+	{ TIPSIZE * 1.5, TIPSIZE * -.5, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
+	{ TIPSIZE * 1.5, TIPSIZE * 1.5, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+	{    0.0f, TIPSIZE * 1.5, 0.5f, 1.0f, 0xFFFFFFFF, 0.5f, 1.0f },
+};
+
+//CUSTOMVERTEX g_mapTip2[] =
+//{
+//	{ 0.0f, TIPSIZE * 1.5, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f },
+//	{ TIPSIZE * 1.5, TIPSIZE * 1.5, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
+//	{ TIPSIZE * 1.5, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+//	{ 0.0f, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 1.0f },
+//	
+//};
+//
 
 // マップチップのデータを格納してる二次元配列
 int map[MAP_HEIGHT][MAP_WIDTH];
@@ -39,6 +56,7 @@ void Render()
 	SetGameScene( g_pGameTexture[BACKGROUND_TEX], backGround);		//SetGameScene()はdx_texから関数呼び出し、
 	PlayerDraw();
 	MapDraw();
+	UIRender();
 	SetGameSceneEnd();	//SetGameSceneEnd()はdx_texから関数呼び出し
 
 }
@@ -79,11 +97,27 @@ void MapDraw()
 					drawMapVertex[i].x += (x * TIPSIZE);
 					drawMapVertex[i].y += (y * TIPSIZE);
 				}
-				// テクスチャをステージに割り当てる
-				pD3Device->SetTexture(0, g_pGameTexture[MAP_GROUND_TEX]);
-				// 描画
-				pD3Device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, drawMapVertex, sizeof(CUSTOMVERTEX));
+
+				SetGameScene(g_pGameTexture[MAP_GROUND_TEX], drawMapVertex);
+
 			}
+			else if (map[y][x] == 2)
+			{
+				CUSTOMVERTEX drawMapVertex[4];
+				for (int i = 0; i < 4; i++)
+				{
+					drawMapVertex[i] = g_mapTip2[i];
+				}
+
+				for (int i = 0; i < 4; i++)
+				{
+					drawMapVertex[i].x += (x * TIPSIZE);
+					drawMapVertex[i].y += (y * TIPSIZE);
+				}
+
+				SetGameScene(g_pGameTexture[MAP_GROUND2_TEX], drawMapVertex);
+			}
+
 		}
 	}
 
@@ -99,3 +133,24 @@ void GameSceneFree()
 	}
 }
 
+
+void Init_Csv()
+{
+	pD3Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//	アルファブレンドによる透明化を有効にする
+	pD3Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);				//	半透明ブレンディングの設定
+	pD3Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);			//	↑↑　とセット
+	pD3Device->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_COLOR1);		//	ディヒューズ色の設定
+
+	pD3Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	pD3Device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);		//	ディヒューズ色の色引数の処理を有効化する
+
+	pD3Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);		//	カラーブレンディング処理を乗算にする
+
+	pD3Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	pD3Device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);		//	ディヒューズ色の透過色引数の処理を有効化する
+
+	pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);		//	アルファブレンディングの処理を乗算にする
+
+	MapLoad("map(仮).csv");
+
+}

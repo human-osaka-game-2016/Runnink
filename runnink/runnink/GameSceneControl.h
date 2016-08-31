@@ -1,9 +1,8 @@
-#include<dx_input.h>
-
 #define MOVESPEED 10
 #define SCROOLSPEED 0.0005f
 #define JUMP_POWER -15.f
 #define GRAVITY 0.6f
+#define BULLETMAX 3
 
 struct PLAYERSTATE
 {
@@ -12,6 +11,7 @@ struct PLAYERSTATE
 	float dispPosX, dispPosY;
 	//èâë¨ìx
 	float a;
+	bool animReverse;
 	bool jumpFlag;
 	bool skyFlag;
 };

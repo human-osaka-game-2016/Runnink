@@ -12,7 +12,7 @@
 //LPDIRECT3D9			g_pDirect3D = NULL;		// DirectXオブジェクトのポインタ
 //LPDIRECT3DDEVICE9	g_pDirect3DDevice = NULL;	// DirectXデバイスのポインタ
 //D3DDISPLAYMODE		g_D3DdisplayMode;
-//D3DPRESENT_PARAMETERS D3dPresentParameters;
+//D3DPRESENT_PARAMETERS D3dPre5sentParameters;
 
 // ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
@@ -84,13 +84,28 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	RoadTex("background.png", &g_pGameTexture[BACKGROUND_TEX]); //画像の読み込み、RoadTexはdx_texから関数呼び出し
 
-	RoadTex("chara.png", &g_pGameTexture[PLAYER_TEX]);
+	//RoadTex("chara.png", &g_pGameTexture[PLAYER_TEX]);
+
+	RoadTex("Player.png", &g_pGameTexture[PLAYER_TEX]);
 
 	RoadTex("Block03.png", &g_pGameTexture[MAP_GROUND_TEX]);
 
-	//MapLoad(".csv");		//csvファイルが出来てから使用する
+	RoadTex("Block02.png", &g_pGameTexture[MAP_GROUND2_TEX]);
 
-	g_playerstate = { 1, 210.f, 320.f, 70.f, 450.f, 0, false, false };
+	RoadTex("U,01,I,01.png", &g_pGameTexture[UICON1_TEX]);
+
+	//RoadTex("", &g_GameTexture[];);
+
+	//RoadTex("", &g_GameTexture[];);
+
+	//RoadTex("", &g_GameTexture[];);
+
+	//RoadTex("", &g_GameTexture[];);
+
+
+	Init_Csv();
+
+	g_playerstate = { 1, 210.f, 335.f, false, false, 0, false, false, false };
 
 
 	//---------------------------------------------------------------------
