@@ -8,7 +8,7 @@ struct PLAYERSTATE
 {
 	int  HP;
 	float posX, posY;
-	float dispPosX, dispPosY;
+	//float dispPosX, dispPosY;
 	//èâë¨ìx
 	float a;
 	bool animReverse;

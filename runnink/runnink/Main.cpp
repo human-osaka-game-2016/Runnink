@@ -94,11 +94,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	RoadTex("U,01,I,01.png", &g_pGameTexture[UICON1_TEX]);
 
-	//RoadTex("", &g_GameTexture[];);
+	RoadTex("インクバーS.png", &g_pGameTexture[S_TEX]);
+	
+	RoadTex("インクバーM.png", &g_pGameTexture[M_TEX]);
 
-	//RoadTex("", &g_GameTexture[];);
-
-	//RoadTex("", &g_GameTexture[];);
+	RoadTex("インクバーL.png", &g_pGameTexture[L_TEX]);
 
 	//RoadTex("", &g_GameTexture[];);
 

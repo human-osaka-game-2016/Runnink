@@ -155,5 +155,3 @@ void PlayerDraw(void);
 int AnimeCtrl(PLAYERACT kind, bool init = false);
 
 void MapDraw();
-
-

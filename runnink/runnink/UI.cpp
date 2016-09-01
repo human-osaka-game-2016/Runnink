@@ -17,49 +17,41 @@ void UIRender(void)
 		{ 0.f, 160.f, 1.f, 1.f, 0XFFFFFFFF, 0.f, 1.f, },
 	};
 	SetGameScene(g_pGameTexture[UICON1_TEX], UIICON);
-	/*
+	
 	//UI_INK_ARMの頂点座標の入力
-	CUSTOMVERTEX UI_INK_ARM[4]
+	CUSTOMVERTEX UI_INK_S[4]
 	{
-	//{},
-	//{},
-	//{},
-	//{},
+		{ 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f, },
+		{ 40.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f,},
+		{ 40.f, 160.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f,},
+		{ 0.f, 160.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f,},
 	};
-	SetGameScene(g_pGameTexture[ARM_TEX], UI_INK_ARM);
+	SetGameScene(g_pGameTexture[S_TEX], UI_INK_S);
 
 
 	//UI_INK_LEGの頂点座標の入力
-	CUSTOMVERTEX UI_INK_LEG[4]
+	CUSTOMVERTEX UI_INK_M[4]
 	{
-	//{}
-	//{}
-	//{}
-	//{}
-	SetGameScene(g_pGameTexture[UILEG_TEX], UI_INK_LEG);
-
+		{ 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f, },
+		{ 40.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f, },
+		{ 40.f, 160.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f, },
+		{ 0.f, 160.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f, },
 	};
+	SetGameScene(g_pGameTexture[M_TEX], UI_INK_M);
+
+	
 
 
-	CUSTOMVERTEX UI_INK_HP[4]
+	CUSTOMVERTEX UI_INK_L[4]
 	{
-	//{}
-	//{}
-	//{}
-	//{}
-	SetGameScene(g_pGameTexture[UIHP_TEX], UIICON);
+		{ 0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f, },
+		{ 40.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f, },
+		{ 40.f, 160.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f, },
+		{ 0.f, 160.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f, },
+	};
+	SetGameScene(g_pGameTexture[L_TEX], UI_INK_L);
 
-	};*/
+	
 }
 
-void UICON_DATE(void)
-{
-	int ARM_INK;
-	int LEG_INK;
-	int HP_INK;
 
-	ARM_INK = 0;
-	LEG_INK = 0;
-	HP_INK = 0;
-
-}

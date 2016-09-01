@@ -210,6 +210,7 @@ void PlayerControl()
 	{
 		g_playerstate.jumpFlag = true;
 		g_playerstate.skyFlag = true;
+
 		g_playerstate.a = JUMP_POWER;
 		PAction = P_JUMP;
 	}
