@@ -2,6 +2,7 @@
 #include <d3dx9.h>
 #include <dx_lib.h>
 #include "GameSceneControl.h"
+#include "UI.h"
 
 KEYSTATE g_key[KEY_MAX];
 
@@ -17,7 +18,7 @@ void Control()
 	KeyCheck(&g_key[Z], DIK_Z);
 	KeyCheck(&g_key[X], DIK_X);
 	KeyCheck(&g_key[C], DIK_C);
-
+	UIDATE();
 	PlayerControl();
 
 }

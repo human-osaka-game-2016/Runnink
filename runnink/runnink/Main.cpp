@@ -105,7 +105,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	Init_Csv();
 
-	g_playerstate = { 1, 210.f, 335.f, false, false, 0, false, false, false };
+	g_playerstate = { 1, 210.f, 335.f, false, false, 0, false, false, false };//プレイヤーの指定座標
 
 
 	//---------------------------------------------------------------------
