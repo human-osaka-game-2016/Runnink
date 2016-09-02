@@ -14,11 +14,45 @@ struct PLAYERSTATE
 	bool animReverse;
 	bool jumpFlag;
 	bool skyFlag;
+	//フラグ追加点
+	bool TitlehitFlag;
+	bool GameoverhitFlag;
+};
+//追加点
+struct TEXTSTATE
+{
+	float TposX, TposY;
+	float PEposX, PEposY;
 };
 
+//シーンＩＤ
+enum SceneID
+{
+	TitleScene,
+	GameScene,
+	GameOverScene,
+};
 
+//プレイヤーのシーンID
+enum PlayerSceneID
+{
+	Normal,
+	TitlePlayer,
+	GamePlayer,
+	GameOverPlayer,
+};
+
+extern SceneID g_scene;
+
+
+extern PlayerSceneID p_scene;
+//ここまで
 extern KEYSTATE g_key[KEY_MAX];
 extern PLAYERSTATE g_playerstate;
+extern TEXTSTATE g_textstate;//追加点
 
 void Control();
 void PlayerControl();
+
+//シーンを変える関数 追加点
+void ChangeScene();

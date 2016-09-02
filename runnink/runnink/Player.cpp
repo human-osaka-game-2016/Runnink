@@ -6,6 +6,9 @@
 #include "GameSceneControl.h"
 #include "player.h"
 
+//プレイヤーの描画シーン　追加点
+PlayerSceneID p_scene = Normal;
+
 float CalcAng(float y, float x) {
 	float ang;
 
@@ -141,7 +144,66 @@ void PlayerDraw()
 		PlayerDraw[i].y -= TextureBP[AnimeNo].y;
 	}
 
-	SetGameScene(g_pGameTexture[PLAYER_TEX], PlayerDraw);	
+
+
+	//追加点
+	switch (g_scene)
+	{
+	case TitleScene:
+		SetGameScene(g_pGameTexture[PLAYER_TEX], PlayerDraw);
+		break;
+
+	case GameScene:
+		g_playerstate.posX = 150;
+		g_playerstate.posY = 280;
+		SetGameScene(g_pGameTexture[PLAYER_TEX], PlayerDraw);
+		break;
+
+	case GameOverScene:
+
+		if (p_scene != GameOverPlayer) //ゲームオーバー画面でエンター押されてない場合
+		{
+			SetGameScene(g_pGameTexture[PLAYER_DEATH_TEX], PlayerDraw);//
+		}
+		else if (p_scene = GameOverPlayer)
+		{
+			SetGameScene(g_pGameTexture[PLAYER_TEX], PlayerDraw);
+		}
+		break;
+	}
+	//プレイヤーのシーン管理
+	switch (p_scene)
+	{
+	case TitlePlayer:
+		g_playerstate.posX += 10;
+		for (int i = 0; i < 4; i++)//
+		{
+			if (PlayerDraw[i].x == hitflg[i].x)//PlayerDraw.xがhitflg.xと等しい時
+			{
+				g_playerstate.TitlehitFlag = true;
+			}
+		}//
+		break;
+	case GamePlayer:
+
+		break;
+	case GameOverPlayer:
+		if (g_scene != TitleScene)
+		{
+			g_playerstate.posX += 10;
+		}
+
+		for (int i = 0; i < 4; i++)//
+		{
+			if (PlayerDraw[i].x == hitflg[i].x)//PlayerDraw.xがhitflg.xと等しい時
+			{
+
+				g_playerstate.GameoverhitFlag = true;
+			}
+		}
+		break;
+	}//ここまで
+
 
 //手足の描画
 	for (int part = 0; part < 8; part++) {

@@ -11,18 +11,28 @@ extern CUSTOMVERTEX g_mapTip1[];
 
 extern CUSTOMVERTEX g_mapTip2[];
 
+//追加点
+extern CUSTOMVERTEX hitflg[];
+
 enum TEXTURE
 {
+	TITLE_TEX,//追加点
 	BACKGROUND_TEX,
 	MAP_GROUND_TEX,
 	MAP_GROUND2_TEX,
 	UICON1_TEX,
 	PLAYER_TEX,
+	PLAYER_DEATH_TEX,//追加点
+	HIT_FLG,//追加点
 	S_TEX,
 	M_TEX,
 	L_TEX,
 	TEXTURE_MAX,
-
+	//追加点
+	GAMEOVER_TEXT,
+	PUSHENTER_TEXT,
+	TITLE_TEXT,
+	//ここまで
 };
 
 typedef struct
@@ -37,6 +47,9 @@ extern int map[MAP_HEIGHT][MAP_WIDTH];
 void Render();
 void PlayerDraw();
 void PlayerControl();
+void titlescene();//追加点
+void HitFlag();//追加点
+void TextDraw();//追加点
 void MapDraw();
 void MapLoad(const char* mapdata);
 void GameSceneFree();

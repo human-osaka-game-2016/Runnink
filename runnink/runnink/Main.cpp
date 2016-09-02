@@ -100,13 +100,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	RoadTex("インクバーL.png", &g_pGameTexture[L_TEX]);
 
+	//追加点
+	RoadTex("T,H.png", &g_pGameTexture[TITLE_TEX]);//画像の読み込み、RoadTexはdx_texから関数呼び出し
+	RoadTex("C,03,P.png", &g_pGameTexture[PUSHENTER_TEXT]);
+	RoadTex("T,01,R,01.png", &g_pGameTexture[TITLE_TEXT]);
+	RoadTex("white.png", &g_pGameTexture[HIT_FLG]);//
+	RoadTex("G,02,G,01.png", &g_pGameTexture[GAMEOVER_TEXT]);
+	RoadTex("G,02,G,02.png", &g_pGameTexture[PLAYER_DEATH_TEX]);
+	//ここまで
 	//RoadTex("", &g_GameTexture[];);
 
 
 	Init_Csv();
 
-	g_playerstate = { 1, 210.f, 335.f, false, false, 0, false, false, false };//プレイヤーの指定座標
-
+	//追加点
+	g_playerstate = { 1, 210.f, 335.f, false, false, 0, false, false, false, false, false };//プレイヤーの指定座標
+	g_textstate = { 0.f,0.f,0.f,0.f };
+	//ここまで
 
 	//---------------------------------------------------------------------
 	//							ゲームループ
