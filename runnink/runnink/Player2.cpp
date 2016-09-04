@@ -18,10 +18,10 @@ float CalcAng(float y, float x) {
 
 	return ang;
 }
-
-void MakeV(VPos pnt[], CUSTOMVERTEX Body[])		//４点よりバーテックスを作成
+Body[])		//４点よりバーテックスを作成
 {
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0
+void MakeV(VPos pnt[], CUSTOMVERTEX ; i < 8; i++) {
 		Body[i].z = 0.5f;
 		Body[i].rhw = 1.0f;
 		Body[i].color = 0xFFFFFFFF;
@@ -160,120 +160,18 @@ void PlayerDraw()
 
 }
 
-
-void PlayerSliding()	//スライディング処理
-{
-	CUSTOMVERTEX SlidingDraw[4]
-	{
-		{    0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f },
-		{ 200.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f },
-		{ 200.f, 240.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f },
-		{ 0.f, 240.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f }
-	};
-
-	for (int i = 0; i < 4; i++)
-	{
-		SlidingDraw[i].x += g_playerstate.posX;
-		SlidingDraw[i].y += g_playerstate.posY;
-	}
-
-	//プレイヤーの左下のマップのx位置
-	int playerLeftDownArrayX = (int)((g_playerstate.posX - 100) / TIPSIZE);
-	//プレイヤーの右下のマップのx位置
-	int playerRightDownArrayX = (int)((g_playerstate.posX + 100) / TIPSIZE);
-
-	//プレイヤーの右のマップのx位置
-	int playerArrayX = (int)((g_playerstate.posX + 200) / TIPSIZE);
-	//プレイヤーのマップのy位置
-	int playerArrayY = (int)(g_playerstate.posY / TIPSIZE);
-
-
-
-
-	//if (g_key[DOWN] == ON)
-	//{
-	//	//下押してるかのフラグを立てる
-	//	g_playerstate.slidingFlag = true;
-	if (g_playerstate.PunchFlag == false)
-		if (g_playerstate.jumpFlag == false){
-			if (g_key[DOWN] == PUSH && !g_playerstate.slidingFlag)
-			{
-				g_playerstate.slidingFlag = true;
-				PAction = P_SLIDING;
-
-			}
-
-			if (g_key[DOWN] == RELEASE && g_playerstate.slidingFlag)
-			{
-				g_playerstate.slidingFlag = false;
-
-				PAction = P_RUN;
-			}
-
-		}
-}
-
-
-void PlayerPunch() //パンチの処理
-{
-	CUSTOMVERTEX PunchDraw[4]
-	{
-		{    0.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f },
-		{ 200.f, 0.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f },
-		{ 200.f, 240.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f },
-		{ 0.f, 240.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f }
-	};
-
-	for (int i = 0; i < 4; i++)
-	{
-		PunchDraw[i].x += g_playerstate.posX;
-		PunchDraw[i].y += g_playerstate.posY;
-	}
-
-	//プレイヤーの左下のマップのx位置
-	int playerLeftDownArrayX = int((g_playerstate.posX - 100) / TIPSIZE);
-	//プレイヤーの右下のマップのx位置
-	int playerRightDownArrayX = int((g_playerstate.posX + 100) / TIPSIZE);
-
-	//プレイヤーの右のマップのx位置
-	int playerArrayX = int((g_playerstate.posX + 200) / TIPSIZE);
-	//プレイヤーのマップのy位置
-	int playerArrayY = int(g_playerstate.posY / TIPSIZE);
-
-
-
-	if (g_playerstate.jumpFlag == false)
-		if (g_playerstate.slidingFlag == false){
-			if (g_key[SPACE] == ON && !g_playerstate.PunchFlag)
-			{
-				g_playerstate.PunchFlag = true;
-				PAction = P_ATTACK;
-
-			}
-
-			if (g_key[SPACE] == RELEASE && g_playerstate.PunchFlag)
-			{
-				g_playerstate.PunchFlag = false;
-
-				PAction = P_RUN;
-			}
-		}
-
-}
-
-
-
 void PlayerControl()
 {
 	//プレイヤーの左下のマップのx位置
-	int playerLeftDownArrayX = (int)((g_playerstate.posX - 160) / TIPSIZE);
+	int playerLeftDownArrayX = int((g_playerstate.posX - 160 )/ TIPSIZE);
 	//プレイヤーの右下のマップのx位置
-	int playerRightDownArrayX = (int)((g_playerstate.posX + 160) / TIPSIZE);
+	int playerRightDownArrayX = int((g_playerstate.posX + 160) / TIPSIZE);
 
 	//プレイヤーの右のマップのx位置
-	int playerArrayX = (int)((g_playerstate.posX + 160 + DispCount) / TIPSIZE);
+	int playerArrayX = int((g_playerstate.posX + 160 + DispCount) / TIPSIZE);
 	//プレイヤーのマップのy位置
-	int playerArrayY = (int)((g_playerstate.posY + 50)  / TIPSIZE);
+	int playerArrayY = int(g_playerstate.posY + 50)/ TIPSIZE;
+
 
 	if (map[playerArrayY][playerArrayX] == 0)
 	{
@@ -287,11 +185,13 @@ void PlayerControl()
 			{
 				g_mapTip1[i].x -= MOVESPEED;
 				g_mapTip2[i].x -= MOVESPEED;
-			}
 
+			}
 			DispCount += MOVESPEED;
+
 		}
 	}
+
 /////////////////////
 	//////////////////////
 	///////////////////////
@@ -313,13 +213,12 @@ void PlayerControl()
 	//////////////////////
 
 
-	if (g_playerstate.slidingFlag == false)
-		if (g_playerstate.PunchFlag == false){
-	if (g_key[UP] == PUSH && !g_playerstate.skyFlag)
+
+
+	if (g_key[SPACE] == PUSH && !g_playerstate.skyFlag)
 	{
 		g_playerstate.jumpFlag = true;
 		g_playerstate.skyFlag = true;
-
 		g_playerstate.a = JUMP_POWER;
 		PAction = P_JUMP;
 	}
@@ -380,6 +279,6 @@ void PlayerControl()
 			g_playerstate.skyFlag = false;
 		}
 	}
-	}
+
 	AnimeCtrl(PAction, false);
 }

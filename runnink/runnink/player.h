@@ -34,7 +34,7 @@ VPos TextureBP[] = {
 	{  480.0f,   0.0f },
 	{  640.0f,   0.0f },
 	{  800.0f,   0.0f },
-	{  160.0f, 172.0f },
+	{  0.0f, 172.0f },
 };
 
 struct BodyInfo {
@@ -140,9 +140,9 @@ struct ANICTRL {
 
 ANICTRL PlayerAct[P_ACTMAX] = {
 	{ 0, 0, 2, 10, 0, ONEWAY, true },	//P_RUN,
-	{ 0, 0, 2, 20, 0, ONEWAY, true },	//P_ATTACK,
+	{ 3, 3, 4, 20, 0, ONEWAY, true },	//P_ATTACK,
 	{ 5, 5, 5, 20, 0, ONEWAY, true },	//P_JUMP,
-	{ 0, 0, 1, 20, 0, ONEWAY, true },	//P_SLIDING,
+	{ 6, 6, 6, 20, 0, ONEWAY, true },	//P_SLIDING,
 };
 
 PLAYERACT PAction = P_RUN;

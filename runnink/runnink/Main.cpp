@@ -84,8 +84,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	RoadTex("background.png", &g_pGameTexture[BACKGROUND_TEX]); //画像の読み込み、RoadTexはdx_texから関数呼び出し
 
-	//RoadTex("chara.png", &g_pGameTexture[PLAYER_TEX]);
-
 	RoadTex("Player.png", &g_pGameTexture[PLAYER_TEX]);
 
 	RoadTex("Block03.png", &g_pGameTexture[MAP_GROUND_TEX]);
@@ -94,29 +92,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	RoadTex("U,01,I,01.png", &g_pGameTexture[UICON1_TEX]);
 
+	RoadTex("インク瓶完成.png", &g_pGameTexture[SLIDING_TEX]);
+
 	RoadTex("インクバーS.png", &g_pGameTexture[S_TEX]);
 	
 	RoadTex("インクバーM.png", &g_pGameTexture[M_TEX]);
 
 	RoadTex("インクバーL.png", &g_pGameTexture[L_TEX]);
 
-	//追加点
-	RoadTex("T,H.png", &g_pGameTexture[TITLE_TEX]);//画像の読み込み、RoadTexはdx_texから関数呼び出し
-	RoadTex("C,03,P.png", &g_pGameTexture[PUSHENTER_TEXT]);
-	RoadTex("T,01,R,01.png", &g_pGameTexture[TITLE_TEXT]);
-	RoadTex("white.png", &g_pGameTexture[HIT_FLG]);//
-	RoadTex("G,02,G,01.png", &g_pGameTexture[GAMEOVER_TEXT]);
-	RoadTex("G,02,G,02.png", &g_pGameTexture[PLAYER_DEATH_TEX]);
-	//ここまで
-	//RoadTex("", &g_GameTexture[];);
+	RoadTex("En2,03,M,1.png", &g_pGameTexture[ENEMY_TEX]);
+
+	RoadTex("fire.png", &g_pGameTexture[FIRE_TEX]);
+
 
 
 	Init_Csv();
 
-	//追加点
-	g_playerstate = { 1, 210.f, 335.f, false, false, 0, false, false, false, false, false };//プレイヤーの指定座標
-	g_textstate = { 0.f,0.f,0.f,0.f };
-	//ここまで
+	g_playerstate = { 1, 210.f, 300.f, false, false, 0, false, false, false };//プレイヤーの指定座標
+
 
 	//---------------------------------------------------------------------
 	//							ゲームループ

@@ -3,9 +3,9 @@
 #include <dx_lib.h>
 #include "GameSceneControl.h"
 #include"UI.h"
-UISTATE g_uistate =  { 210.f, 100.f, };
+UISTATE g_uistate = { 210.f, 100.f, };
 char leftsize = INK_M;
-
+char HPsize = INK_L;
 void UIRender(void)
 {
 
@@ -67,6 +67,19 @@ void UIRender(void)
 		SetGameScene(g_pGameTexture[L_TEX], UI_INK_ARM);
 		SetGameScene(g_pGameTexture[S_TEX], UI_INK_LEG);
 	}
+	if (HPsize == INK_S)
+	{
+		SetGameScene(g_pGameTexture[S_TEX], UI_INK_HP);
+	}
+	else if (HPsize == INK_M)
+	{
+		SetGameScene(g_pGameTexture[M_TEX], UI_INK_HP);
+	}
+	else if (HPsize == INK_L)
+	{
+		SetGameScene(g_pGameTexture[L_TEX], UI_INK_HP);
+	}
+
 }
 
 
@@ -101,6 +114,21 @@ void UIDATE(void)
 	//-----------------------------------------------------
 	//以下デバック用
 	//-----------------------------------------------------
+	if (g_key[M] == PUSH)
+		if (HPsize == INK_L)
+		{
+			HPsize = INK_M;
+		}
+		else if (HPsize == INK_M)
+		{
+
+			HPsize = INK_S;
+		}
+		else if (HPsize == INK_S)
+		{
+			HPsize = INK_None;
+		}
+
 }
 
 

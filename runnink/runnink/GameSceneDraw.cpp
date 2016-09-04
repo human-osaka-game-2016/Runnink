@@ -4,6 +4,7 @@
 #include <dx_lib.h>
 #include "GameSceneDraw.h"
 #include "GameSceneControl.h"
+#include "Enemy.h"
 
 // ゲームシーンの画像情報を入れておく配列
 LPDIRECT3DTEXTURE9			g_pGameTexture[TEXTURE_MAX];
@@ -18,10 +19,26 @@ CUSTOMVERTEX g_mapTip1[] =
 
 CUSTOMVERTEX g_mapTip2[] =
 {
-	{ 0.0f, TIPSIZE * -.5f, 0.5f, 1.0f, 0xFFFFFFFF, 0.5f, 0.0f },
-	{ TIPSIZE * 1.5, TIPSIZE * -.5, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
-	{ TIPSIZE * 1.5, TIPSIZE * 1.5, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
-	{    0.0f, TIPSIZE * 1.5, 0.5f, 1.0f, 0xFFFFFFFF, 0.5f, 1.0f },
+	{ 0.0f, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f },
+	{ TIPSIZE, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
+	{ TIPSIZE, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+	{ 0.0f, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 1.0f },
+};
+
+CUSTOMVERTEX g_mapTip3[] =
+{
+	{ 0.0f, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f },
+	{ TIPSIZE, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
+	{ TIPSIZE, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+	{ 0.0f, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 1.0f },
+};
+
+CUSTOMVERTEX g_mapTip4[] =
+{
+	{ 0.0f, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f },
+	{ TIPSIZE, 0.0f, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 0.0f },
+	{ TIPSIZE, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+	{ 0.0f, TIPSIZE, 0.5f, 1.0f, 0xFFFFFFFF, 0.0f, 1.0f },
 };
 
 //CUSTOMVERTEX g_mapTip2[] =
@@ -33,8 +50,6 @@ CUSTOMVERTEX g_mapTip2[] =
 //	
 //};
 //
-
-TEXTSTATE g_textstate;//追加点
 
 // マップチップのデータを格納してる二次元配列
 int map[MAP_HEIGHT][MAP_WIDTH];
@@ -54,33 +69,14 @@ void Render()
 	BackGroundTv += SCROOLSPEED;
 
 	SetGameSceneStart(D3DFVF_CUSTOMVERTEX);		//SetGameSceneStart()はdx_texから関数呼び出し、
-	
-
-	//シーンIDごとにとぶ　追加点
-	switch (g_scene)
-	{
-	case TitleScene://タイトル画面
-		titlescene();//タイトルシーンの描画
-		HitFlag();//当たり判定
-		PlayerDraw();//プレイヤー描画
-		TextDraw();//文字の描画
-		break;
-	case GameScene://プレイ画面
-		SetGameScene(g_pGameTexture[BACKGROUND_TEX], backGround);		//SetGameScene()はdx_texから関数呼び出し、
-		PlayerDraw();
-		MapDraw();//マップ描画
-		UIRender();
-		break;
-	case GameOverScene://ゲームオーバー
-		titlescene();
-		TextDraw();
-		HitFlag();//当たり判定
-		PlayerDraw();
-		MapDraw();
-		break;
-	};//ここまで
-
-
+																	
+	SetGameScene( g_pGameTexture[BACKGROUND_TEX], backGround);		//SetGameScene()はdx_texから関数呼び出し、
+	PlayerDraw();
+	MapDraw();
+	UIRender();
+	Draw_Enemy();
+	PlayerSliding();
+	PlayerPunch();
 	SetGameSceneEnd();	//SetGameSceneEnd()はdx_texから関数呼び出し
 
 }
@@ -141,6 +137,38 @@ void MapDraw()
 
 				SetGameScene(g_pGameTexture[MAP_GROUND2_TEX], drawMapVertex);
 			}
+			else if (map[y][x] == 3)
+			{
+				CUSTOMVERTEX drawMapVertex[4];
+				for (int i = 0; i < 4; i++)
+				{
+					drawMapVertex[i] = g_mapTip2[i];
+				}
+
+				for (int i = 0; i < 4; i++)
+				{
+					drawMapVertex[i].x += (x * TIPSIZE);
+					drawMapVertex[i].y += (y * TIPSIZE);
+				}
+
+				SetGameScene(g_pGameTexture[MAP_GROUND2_TEX], drawMapVertex);
+			}
+			else if (map[y][x] == 4)
+			{
+				CUSTOMVERTEX drawMapVertex[4];
+				for (int i = 0; i < 4; i++)
+				{
+					drawMapVertex[i] = g_mapTip2[i];
+				}
+
+				for (int i = 0; i < 4; i++)
+				{
+					drawMapVertex[i].x += (x * TIPSIZE);
+					drawMapVertex[i].y += (y * TIPSIZE);
+				}
+
+				SetGameScene(g_pGameTexture[MAP_GROUND2_TEX], drawMapVertex);
+			}
 
 		}
 	}
@@ -157,69 +185,6 @@ void GameSceneFree()
 	}
 }
 
-void TextDraw()//追加点
-{
-	//文字描画
-	CUSTOMVERTEX GameOverText[4]
-	{
-		{ 0.f, 0.f, 1.f, 1.0f, 0xFFFFFFFF, 0.0f, 0.f },
-		{ 1280.f, 0.f, 1.f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
-		{ 1280.f, 350.f, 1.f, 1.0f, 0xFFFFFFFF, 1.0f, 1.f },
-		{ 0.f, 350.f, 1.f, 1.0f, 0xFFFFFFFF, 0.0f, 1.f }
-	};
-	CUSTOMVERTEX TitleText[4]
-	{
-		{ 0.f, 0.f, 1.f, 1.0f, 0xFFFFFFFF, 0.0f, 0.f },
-		{ 1280.f, 0.f, 1.f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
-		{ 1280.f, 350.f, 1.f, 1.0f, 0xFFFFFFFF, 1.0f, 1.f },
-		{ 0.f, 350.f, 1.f, 1.0f, 0xFFFFFFFF, 0.0f, 1.f }
-	};
-	CUSTOMVERTEX PushEnterText[4]
-	{
-
-		{ 0.f, 0.f, 1.f, 1.0f, 0xFFFFFFFF, 0.0f, 0.f },
-		{ 1280.f, 0.f, 1.f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
-		{ 1280.f, 720.f, 1.f, 1.0f, 0xFFFFFFFF, 1.0f, 1.f },
-		{ 0.f, 720.f, 1.f, 1.0f, 0xFFFFFFFF, 0.0f, 1.f }
-	};
-
-	for (int i = 0; i < 4; i++)
-	{
-		GameOverText[i].x += g_textstate.TposX;
-		GameOverText[i].y += g_textstate.TposY;
-	}
-
-
-	for (int i = 0; i < 4; i++)
-	{
-		PushEnterText[i].x += g_textstate.PEposX;
-		PushEnterText[i].y += g_textstate.PEposY;
-	}
-
-	//シーンIDごとにとぶ
-	switch (g_scene)
-	{
-	case TitleScene:
-		SetGameScene(g_pGameTexture[TITLE_TEXT], TitleText);
-
-		SetGameScene(g_pGameTexture[PUSHENTER_TEXT], PushEnterText);
-		break;
-	case GameScene:
-		g_textstate.TposX = 1100;
-		g_textstate.PEposX = 1100;
-		break;
-	case GameOverScene:
-		SetGameScene(g_pGameTexture[GAMEOVER_TEXT], GameOverText);
-		SetGameScene(g_pGameTexture[PUSHENTER_TEXT], PushEnterText);
-		if (g_textstate.PEposX != 0)
-		{
-			g_textstate.TposX -= 10;
-			g_textstate.PEposX -= 10;
-		}
-
-		break;
-	};
-}//ここまで
 
 void Init_Csv()
 {
@@ -238,6 +203,6 @@ void Init_Csv()
 
 	pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);		//	アルファブレンディングの処理を乗算にする
 
-	MapLoad("map(仮).csv");
+	MapLoad("map01234.csv");
 
 }
