@@ -81,8 +81,48 @@ void UIRender(void)
 	}
 
 }
+/*---------------------------“–‚è”»’èÀ‘•Œãì‹Æ‚·‚é---------------------------------------------------------
+void Player_Damage(void)
+{
+	bool Damage_Flag;
+	//Damege_Flag = “–‚è”»’è‚ÌŠÖ”ŒÄ‚Ño‚µtask kumagai
+	if (Damage_Flag)
+	{
+		if (HPsize == INK_L)
+		{
+			HPsize = INK_M;
+		}
+		else if (HPsize == INK_M)
+		{
+
+			HPsize = INK_S;
+		}
+		else if (HPsize == INK_S)
+		{
+			HPsize = INK_None;
+		}
+	}
 
 
+}
+void Player_Recovery(void)
+{
+	bool Recovery_Flag;
+	//Recovery_Flag = “–‚è”»’è‚ÌŠÖ”ŒÄ‚Ño‚µtask kumagai 
+	if (Recovery_Flag)
+	{
+		if (HPsize == INK_S)
+		{
+			HPsize = INK_M;
+		}
+		if (HPsize == INK_M)
+		{
+			HPsize = INK_L;
+		}
+	}
+}
+
+*/
 
 void UIDATE(void)
 {

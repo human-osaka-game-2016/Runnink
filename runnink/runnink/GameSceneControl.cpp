@@ -29,6 +29,7 @@ void Control()
 
 	KeyCheck(&g_key[L], DIK_L);
 	KeyCheck(&g_key[K], DIK_K);
+	KeyCheck(&g_key[A], DIK_A);
 
 	Comand();
 

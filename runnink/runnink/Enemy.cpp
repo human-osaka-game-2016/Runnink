@@ -46,16 +46,16 @@ void Init_Enemy_3()
 {
 	Enemy[0] = { ENEMY_POSX - ENEMY_WIDTH, ENEMY_POSY_3 - ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f, };
 	Enemy[1] = { ENEMY_POSX + ENEMY_WIDTH, ENEMY_POSY_3 - ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f, };
-	Enemy[2] = { ENEMY_POSX + ENEMY_WIDTH, ENEMY_POSY_3 - ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f, };
-	Enemy[3] = { ENEMY_POSX - ENEMY_WIDTH, ENEMY_POSY_3 - ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f, };
+	Enemy[2] = { ENEMY_POSX + ENEMY_WIDTH, ENEMY_POSY_3 + ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f, };
+	Enemy[3] = { ENEMY_POSX - ENEMY_WIDTH, ENEMY_POSY_3 + ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f, };
 }
 
 void Init_Fire()
 {
-	Fire[0] = { ENEMY_POSX - ENEMY_WIDTH, ENEMY_POSY_3, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
-	Fire[1] = { ENEMY_POSX - (ENEMY_WIDTH / 2), ENEMY_POSY_3, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
-	Fire[2] = { ENEMY_POSX - (ENEMY_WIDTH / 2), ENEMY_POSY_3 + ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f };
-	Fire[3] = { ENEMY_POSX - ENEMY_WIDTH, ENEMY_POSY_3 + ENEMY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f };
+	Fire[0] = { ENEMY_POSX - ENEMY_WIDTH, ENEMY_POSY_3 + ENEMY_HIGHT / 2 + 10, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f };
+	Fire[1] = { ENEMY_POSX - (ENEMY_WIDTH / 2), ENEMY_POSY_3 + ENEMY_HIGHT / 2 + 10, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f };
+	Fire[2] = { ENEMY_POSX - (ENEMY_WIDTH / 2), ENEMY_POSY_3 + ENEMY_HIGHT * 1.5 + 10, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f };
+	Fire[3] = { ENEMY_POSX - ENEMY_WIDTH, ENEMY_POSY_3 + ENEMY_HIGHT * 1.5 + 10, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f };
 }
 
 
@@ -77,10 +77,6 @@ void Control_Enemy()
 	if (Enemy[1].x <= 0.f)
 	{
 		DrawFrag = false;
-		if (fireFrag)
-		{
-			fireFrag = false;
-		}
 	}
 }
 
@@ -93,6 +89,8 @@ void Draw_Enemy()
 		srand((unsigned)time(NULL));
 
 		int Rand = rand() % 11;
+
+		fireFrag = false;
 
 		if (Rand == 0)
 		{
@@ -119,15 +117,26 @@ void Draw_Enemy()
 		if (fireFrag)
 		{
 			fireTime++;
+
+			if (fireTime % 30 <= 20)
+			{
+				SetGameScene(g_pGameTexture[FIRE_TEX], Fire);
+			}
 		}
 		if (Enemy_HitFrag)
 		{
+			//‚±‚±‚É“–‚è”»’è‚ð’Ç‰Á‚·‚é
+			//task kumagai
 			DrawFrag = false;
 			Enemy_HitFrag = false;
-			fireFrag = false;
+
+			
 		}
 	}
+
 }
+
+
 
 //------------------------------------------
 //
@@ -143,6 +152,11 @@ void Comand()
 	if (g_key[L] == PUSH)
 	{
 		DrawFrag = false;
-		fireFrag = false;
+	}
+	if (g_key[A] == PUSH)
+	{
+		Enemy_HitFrag = true;
 	}
 }
+
+
