@@ -102,7 +102,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 
 	RoadTex("En2,03,M,1.png", &g_pGameTexture[ENEMY_TEX]);
 
+	RoadTex("U,01,I,02.png", &g_pGameTexture[UI_EX_TEX]);
+
 	RoadTexEx("fire.png", &g_pGameTexture[FIRE_TEX], 255, 0, 255, 0, true);
+
+
 
 
 

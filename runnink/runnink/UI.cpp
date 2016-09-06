@@ -3,9 +3,13 @@
 #include <dx_lib.h>
 #include "GameSceneControl.h"
 #include"UI.h"
+
 UISTATE g_uistate = { 210.f, 100.f, };
+UI_EXSTATE g_uiexstate = { 210.f, 140.f, };
 char leftsize = INK_M;
+char rightsize = INK_M;
 char HPsize = INK_L;
+
 void UIRender(void)
 {
 
@@ -51,7 +55,18 @@ void UIRender(void)
 		{ 200.f, 160.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f, },
 		{ 0.f, 160.f, 1.f, 1.f, 0XFFFFFFFF, 0.f, 1.f, },
 	};
+
 	SetGameScene(g_pGameTexture[UICON1_TEX], UIICON);
+
+	CUSTOMVERTEX UI_EXICON[4]
+	{
+		{ 0.f, 130.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f, },
+		{ 220.f, 130.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 0.f, },
+		{ 220.f, 290.f, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f, },
+		{ 0.f, 290.f, 1.f, 1.f, 0xFFFFFFFF, 0.f, 1.f, },
+	};
+	SetGameScene(g_pGameTexture[UI_EX_TEX], UI_EXICON);
+
 	if (leftsize == INK_S)
 	{
 		SetGameScene(g_pGameTexture[S_TEX], UI_INK_ARM);
@@ -99,7 +114,7 @@ void Player_Damage(void)
 		}
 		else if (HPsize == INK_S)
 		{
-			HPsize = INK_None;
+			HPsize = INK_None;+
 		}
 	}
 
@@ -131,20 +146,24 @@ void UIDATE(void)
 		if (leftsize == INK_S)
 		{
 			leftsize = INK_M;
+			rightsize = INK_M;
 		}
 		else if (leftsize == INK_M)
 		{
 			leftsize = INK_L;
+			rightsize = INK_S;
 		}
 	}
 	if (g_key[X] == PUSH){
 		if (leftsize == INK_L)
 		{
 			leftsize = INK_M;
+			rightsize = INK_M;
 		}
 		else if (leftsize == INK_M)
 		{
 			leftsize = INK_S;
+			rightsize = INK_L;
 		}
 
 	}

@@ -24,9 +24,15 @@ enum TEXTURE
 	L_TEX,
 	ENEMY_TEX,
 	FIRE_TEX,
+	UI_EX_TEX,
 	TEXTURE_MAX,
 
 };
+
+typedef struct
+{
+	float UI_EXposX, UI_EXposY;
+}UI_EXSTATE;
 
 typedef struct
 {

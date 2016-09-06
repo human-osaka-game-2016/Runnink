@@ -66,6 +66,7 @@ void Render()
 		{    0.f, 600.f, 1.f, 1.f, 0xFFFFFFFF, BackGroundTv, 1.f }
 	};
 
+
 	BackGroundTv += SCROOLSPEED;
 
 	SetGameSceneStart(D3DFVF_CUSTOMVERTEX);		//SetGameSceneStart()はdx_texから関数呼び出し、
@@ -73,10 +74,10 @@ void Render()
 	SetGameScene( g_pGameTexture[BACKGROUND_TEX], backGround);		//SetGameScene()はdx_texから関数呼び出し、
 	PlayerDraw();
 	MapDraw();
-	UIRender();
 	Draw_Enemy();
 	PlayerSliding();
 	PlayerPunch();
+	UIRender();
 	SetGameSceneEnd();	//SetGameSceneEnd()はdx_texから関数呼び出し
 
 }
